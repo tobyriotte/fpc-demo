@@ -3,93 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - First Pull Cards</title>
-    <style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=Inter:wght@400;500;600&display=swap');
-* {margin:0;padding:0;box-sizing:border-box;}
-body {background:#F7F9FB!important;font-family:'Inter',sans-serif!important;color:#0F172A;}
-header {background:#FFFFFF;border-bottom:1px solid #E4EAF0;padding:20px;position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;}
-.logo {font-family:'DM Sans',sans-serif;font-size:18px;font-weight:800;color:#0F172A;}
-.logo .pull {color:#0F766E;}
-header nav a {color:#0F766E;text-decoration:none;font-weight:500;margin-left:30px;font-size:14px;}
-header nav a:hover {color:#0D5F58;}
-.container {max-width:900px;margin:40px auto;padding:0 20px;}
-h1 {font-family:'DM Sans',sans-serif;font-size:32px;font-weight:800;margin-bottom:20px;}
-h2 {font-family:'DM Sans',sans-serif;font-size:24px;font-weight:800;margin:30px 0 20px 0;}
-.form-container {background:#FFFFFF;border:1px solid #E4EAF0;border-radius:8px;padding:32px;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
-.form-group {margin-bottom:20px;}
-label {display:block;margin-bottom:8px;font-weight:500;font-size:14px;}
-input,select {width:100%;padding:12px 16px;border:1px solid #E4EAF0;border-radius:8px;font-size:16px;height:44px;}
-input:focus,select:focus {outline:none;border-color:#0F766E;box-shadow:0 0 0 3px rgba(15,118,110,0.12);}
-button {width:100%;padding:12px 28px;background:#0F766E;color:#FFFFFF;border:none;border-radius:8px;font-weight:700;height:44px;cursor:pointer;}
-button:hover {background:#0D5F58;}
-.error {color:#EF4444;font-size:12px;margin-top:4px;}
-.hidden {display:none;}
-.card {background:#FFFFFF;border:1px solid #E4EAF0;border-radius:12px;padding:16px;margin:16px 0;}
-.grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin:20px 0;}
-.card-tile {border:2px solid #E4EAF0;border-radius:6px;background:#F7F9FB;text-align:center;overflow:hidden;cursor:pointer;}
-.card-tile-image {background:#E4EAF0;height:140px;display:flex;align-items:center;justify-content:center;color:#94A3B8;font-size:12px;}
-.card-tile-info {padding:8px;font-size:12px;}
-.card-tile-name {font-weight:600;color:#0F172A;margin-bottom:4px;}
-.card-tile-team {color:#475569;font-size:11px;}
-.card-tile-price {color:#0F766E;font-weight:600;font-size:11px;margin-top:4px;}
-.rarity-badge {display:inline-block;background:#FFFBEB;border:1px solid #FDE68A;color:#F59E0B;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:800;margin-top:4px;}
-.text-center {text-align:center;}
-.mb-20 {margin-bottom:20px;}
-a {color:#0F766E;text-decoration:none;}
-a:hover {text-decoration:underline;}
-.flex {display:flex;gap:12px;margin:12px 0;}
-.flex button {flex:1;}
-.btn-secondary {background:transparent;color:#0F766E;border:1px solid #0F766E;padding:12px 24px;border-radius:8px;font-weight:600;cursor:pointer;height:44px;width:100%;margin-bottom:12px;}
-.btn-secondary:hover {background:#F0FDFA;}
-.stats-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:20px 0;}
-.stat-card {background:#FFFFFF;border:1px solid #E4EAF0;border-radius:12px;padding:20px;text-align:center;}
-.stat-label {color:#475569;font-size:12px;font-weight:500;margin-bottom:8px;}
-.stat-value {font-family:'DM Sans',sans-serif;font-size:32px;font-weight:800;color:#0F172A;}</style>
+    <title>Parent Dashboard — First Pull Cards</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=Inter:wght@400;500;600&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { 
+            background: #F7F9FB !important; 
+            font-family: 'Inter', sans-serif !important;
+            color: #0F172A;
+        }
+        
+        nav {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E4EAF0;
+            height: 60px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            justify-content: space-between;
+        }
+        
+        nav .logo {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            text-decoration: none;
+            color: #0F172A;
+        }
+        
+        nav .logo .teal { color: #0F766E; }
+        
+        nav .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #0F766E;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+        
+        h1 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 48px;
+            color: #0F172A;
+            letter-spacing: -0.02em;
+        }
+        
+        h2 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #0F172A;
+        }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        
+        .stat-card {
+            background: #FFFFFF;
+            border: 1px solid #E4EAF0;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+        
+        .stat-value {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: #0F172A;
+        }
+        
+        .section {
+            background: #FFFFFF;
+            border: 1px solid #E4EAF0;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .section-content {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        .children-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .children-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #E4EAF0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .children-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .btn-primary {
+            background: #0F766E;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            height: 44px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        
+        .btn-primary:hover { background: #0D5F58; }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #0F766E;
+            border: 2px solid #0F766E;
+            border-radius: 12px;
+            padding: 10px 22px;
+            height: 44px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        
+        .btn-secondary:hover { background: #F0FDFA; }
+        
+        .link {
+            color: #0F766E;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        footer {
+            background: #FFFFFF;
+            border-top: 1px solid #E4EAF0;
+            padding: 32px 24px;
+            text-align: center;
+            color: #64748B;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="logo">FIRST <span class="pull">PULL</span> CARDS</div>
-        <nav>
-            <a href="../index.html">Home</a>
+    <nav>
+        <a href="../index.html" class="logo">FIRST PULL <span class="teal">CARDS</span></a>
+        <div class="nav-links">
             <a href="../explore/index.html">Explore</a>
-            <span id="userEmail" style="color:#0F766E;font-size:14px;"></span>
-        </nav>
-    </header>
+            <a href="../gallery.html">Gallery</a>
+            <a href="../login.html" onclick="logout();">Log Out</a>
+        </div>
+    </nav>
+    
     <div class="container">
-        <h1 id="greeting"></h1>
-        <h2>Your Family</h2>
-        <div id="childrenGrid" class="grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;"></div>
-        <button onclick="window.location.href='add-child.html'" style="margin:30px 0 20px;">Add New Child</button>
-        <div style="display:flex;gap:12px;margin:30px 0;">
-            <button class="btn-secondary" onclick="window.location.href='settings.html'">Settings</button>
-            <button class="btn-secondary" onclick="logout()">Log Out</button>
+        <h1 id="heading">Parent Dashboard</h1>
+        
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-label">Cards Logged</div>
+                <div class="stat-value" id="cardsCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Children</div>
+                <div class="stat-value" id="childrenCount">1</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Last Active</div>
+                <div class="stat-value">Today</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Your Children</h2>
+            <ul class="children-list" id="childrenList"></ul>
+            <button class="btn-primary" onclick="window.location.href = 'add-child.html'" style="margin-top: 24px;">Add Child</button>
+        </div>
+        
+        <div class="section">
+            <h2>Pending Photos</h2>
+            <div class="section-content">1 photo awaiting your approval</div>
+            <button class="btn-primary" onclick="window.location.href = 'gallery.html'">Review Photos</button>
+        </div>
+        
+        <div class="section">
+            <h2>Pack Opening</h2>
+            <div class="section-content">Start a pack opening session</div>
+            <button class="btn-primary" onclick="window.location.href = '../open/index.html'">Open a Pack</button>
+        </div>
+        
+        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 48px;">
+            <a href="settings.html" class="btn-secondary">Settings</a>
+            <button class="btn-secondary" onclick="logout();">Log Out</button>
         </div>
     </div>
+    
+    <footer>
+        2026 First Pull Cards. Pilot program.
+    </footer>
+    
     <script>
-        const family=JSON.parse(sessionStorage.getItem('fpc_family')||'{}');
-        const collection=JSON.parse(sessionStorage.getItem('fpc_collection')||'[]');
+        const family = JSON.parse(sessionStorage.getItem('fpc_family') || '{}');
+        const collection = JSON.parse(sessionStorage.getItem('fpc_collection') || '[]');
         
-        document.getElementById('greeting').textContent='Welcome, '+family.parentName+'!';
-        document.getElementById('userEmail').textContent=family.email;
+        document.getElementById('heading').textContent = `Welcome back, ${family.parentName || 'Parent'}!`;
+        document.getElementById('cardsCount').textContent = collection.length;
+        document.getElementById('childrenCount').textContent = (family.children || []).length || '1';
         
-        const grid=document.getElementById('childrenGrid');
-        (family.children||[]).forEach((child,idx)=>{
-            const div=document.createElement('div');
-            div.className='card';
-            div.style.cursor='pointer';
-            div.innerHTML=`
-                <div style="font-size:16px;font-weight:600;margin-bottom:12px;">👦 ${child}</div>
-                <div style="font-size:12px;color:#475569;margin-bottom:16px;">Pulled: ${collection.length} cards</div>
-                <button class="btn-secondary" onclick="window.location.href='../open/collection.html'">View Collection</button>
+        const childrenList = document.getElementById('childrenList');
+        (family.children || ['Child']).forEach(child => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${child}</span>
+                <a href="../open/collection.html" class="link">View Collection</a>
             `;
-            grid.appendChild(div);
+            childrenList.appendChild(li);
         });
         
-        function logout(){
-            if(confirm('Log out?')){
-                sessionStorage.clear();
-                window.location.href='../index.html';
-            }
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = '../index.html';
         }
     </script>
 </body>
