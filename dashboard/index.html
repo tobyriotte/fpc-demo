@@ -1,314 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parent Dashboard — First Pull Cards</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=Inter:wght@400;500;600&display=swap');
-    
-    html, body {
-      background-color: #F7F9FB !important;
-      color: #0F172A !important;
-      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 1.6;
-    }
-    
-    h1, h2, h3, h4 {
-      font-family: 'DM Sans', 'Arial Narrow', sans-serif !important;
-      font-weight: 800 !important;
-      color: #0F172A !important;
-      letter-spacing: 0.02em;
-    }
-    
-    .demo-nav {
-      background: #FFFFFF !important;
-      padding: 8px 16px;
-      border-bottom: 1px solid #E4EAF0;
-      font-size: 12px;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    
-    .demo-nav span {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 12px;
-      color: #475569;
-      margin-right: 8px;
-    }
-    
-    .demo-nav a {
-      color: #0F766E;
-      text-decoration: none;
-      font-size: 12px;
-      font-family: 'Inter', sans-serif;
-    }
-    
-    .demo-nav a:hover {
-      text-decoration: underline;
-    }
-    
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 24px;
-    }
-    
-    .page-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 40px;
-    }
-    
-    h1 {
-      font-size: 40px;
-      margin: 0;
-      color: #0F172A;
-    }
-    
-    .cta-link {
-      background: none;
-      border: 1px solid #0F766E;
-      color: #0F766E;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s ease;
-      display: inline-block;
-      min-height: 44px;
-      line-height: 1.4;
-      font-size: 14px;
-    }
-    
-    .cta-link:hover {
-      background: #F0FDFA;
-    }
-    
-    .welcome {
-      text-align: center;
-      margin-bottom: 60px;
-      padding: 32px;
-      background: #FFFFFF;
-      border-radius: 12px;
-      border: 1px solid #E4EAF0;
-    }
-    
-    .welcome p {
-      font-size: 18px;
-      color: #475569;
-      margin: 0 0 8px 0;
-    }
-    
-    .welcome small {
-      display: block;
-      font-size: 14px;
-      color: #64748B;
-    }
-    
-    h2 {
-      font-size: 28px;
-      margin: 0 0 24px 0;
-      color: #0F172A;
-    }
-    
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-bottom: 60px;
-    }
-    
-    .card {
-      background: #FFFFFF;
-      border: 1px solid #E4EAF0;
-      border-radius: 12px;
-      padding: 24px;
-      transition: box-shadow 0.2s ease;
-    }
-    
-    .card:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-    
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    
-    .card-avatar {
-      font-size: 40px;
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #F0FDFA;
-      border-radius: 12px;
-    }
-    
-    .card-title {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      color: #0F172A;
-      margin: 0 0 4px 0;
-    }
-    
-    .card-subtitle {
-      font-size: 14px;
-      color: #475569;
-      margin: 0;
-    }
-    
-    .card-content {
-      font-size: 14px;
-      color: #475569;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-    
-    .card-content strong {
-      color: #0F172A;
-      font-weight: 600;
-    }
-    
-    .cta-primary {
-      background: #0F766E;
-      color: #FFFFFF;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      display: block;
-      width: 100%;
-      min-height: 44px;
-      transition: background 0.2s ease;
-    }
-    
-    .cta-primary:hover {
-      background: #0D5F58;
-    }
-    
-    .divider {
-      border: none;
-      border-top: 1px solid #E4EAF0;
-      margin: 60px 0;
-    }
-    
-    .quick-links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-    }
-    
-    .quick-links a {
-      background: none;
-      border: 1px solid #0F766E;
-      color: #0F766E;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s ease;
-      display: block;
-      text-align: center;
-      min-height: 44px;
-      line-height: 1.4;
-    }
-    
-    .quick-links a:hover {
-      background: #F0FDFA;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - First Pull Cards</title>
+    <style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=Inter:wght@400;500;600&display=swap');
+* {margin:0;padding:0;box-sizing:border-box;}
+body {background:#F7F9FB!important;font-family:'Inter',sans-serif!important;color:#0F172A;}
+header {background:#FFFFFF;border-bottom:1px solid #E4EAF0;padding:20px;position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.logo {font-family:'DM Sans',sans-serif;font-size:18px;font-weight:800;color:#0F172A;}
+.logo .pull {color:#0F766E;}
+header nav a {color:#0F766E;text-decoration:none;font-weight:500;margin-left:30px;font-size:14px;}
+header nav a:hover {color:#0D5F58;}
+.container {max-width:900px;margin:40px auto;padding:0 20px;}
+h1 {font-family:'DM Sans',sans-serif;font-size:32px;font-weight:800;margin-bottom:20px;}
+h2 {font-family:'DM Sans',sans-serif;font-size:24px;font-weight:800;margin:30px 0 20px 0;}
+.form-container {background:#FFFFFF;border:1px solid #E4EAF0;border-radius:8px;padding:32px;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+.form-group {margin-bottom:20px;}
+label {display:block;margin-bottom:8px;font-weight:500;font-size:14px;}
+input,select {width:100%;padding:12px 16px;border:1px solid #E4EAF0;border-radius:8px;font-size:16px;height:44px;}
+input:focus,select:focus {outline:none;border-color:#0F766E;box-shadow:0 0 0 3px rgba(15,118,110,0.12);}
+button {width:100%;padding:12px 28px;background:#0F766E;color:#FFFFFF;border:none;border-radius:8px;font-weight:700;height:44px;cursor:pointer;}
+button:hover {background:#0D5F58;}
+.error {color:#EF4444;font-size:12px;margin-top:4px;}
+.hidden {display:none;}
+.card {background:#FFFFFF;border:1px solid #E4EAF0;border-radius:12px;padding:16px;margin:16px 0;}
+.grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin:20px 0;}
+.card-tile {border:2px solid #E4EAF0;border-radius:6px;background:#F7F9FB;text-align:center;overflow:hidden;cursor:pointer;}
+.card-tile-image {background:#E4EAF0;height:140px;display:flex;align-items:center;justify-content:center;color:#94A3B8;font-size:12px;}
+.card-tile-info {padding:8px;font-size:12px;}
+.card-tile-name {font-weight:600;color:#0F172A;margin-bottom:4px;}
+.card-tile-team {color:#475569;font-size:11px;}
+.card-tile-price {color:#0F766E;font-weight:600;font-size:11px;margin-top:4px;}
+.rarity-badge {display:inline-block;background:#FFFBEB;border:1px solid #FDE68A;color:#F59E0B;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:800;margin-top:4px;}
+.text-center {text-align:center;}
+.mb-20 {margin-bottom:20px;}
+a {color:#0F766E;text-decoration:none;}
+a:hover {text-decoration:underline;}
+.flex {display:flex;gap:12px;margin:12px 0;}
+.flex button {flex:1;}
+.btn-secondary {background:transparent;color:#0F766E;border:1px solid #0F766E;padding:12px 24px;border-radius:8px;font-weight:600;cursor:pointer;height:44px;width:100%;margin-bottom:12px;}
+.btn-secondary:hover {background:#F0FDFA;}
+.stats-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:20px 0;}
+.stat-card {background:#FFFFFF;border:1px solid #E4EAF0;border-radius:12px;padding:20px;text-align:center;}
+.stat-label {color:#475569;font-size:12px;font-weight:500;margin-bottom:8px;}
+.stat-value {font-family:'DM Sans',sans-serif;font-size:32px;font-weight:800;color:#0F172A;}</style>
 </head>
 <body>
-  <div class="demo-nav">
-    <span>DEMO:</span>
-    <a href="../index.html">Landing</a>
-    <a href="../signup.html">Sign Up</a>
-    <a href="../add-child.html">Add Child</a>
-    <a href="../open/index.html">Card Explorer</a>
-    <a href="../open/collection.html">Collection</a>
-    <a href="index.html">Dashboard</a>
-  </div>
-  
-  <main>
-    <div class="page-header">
-      <h1>Parent Dashboard</h1>
-      <a href="../index.html" class="cta-link">Log out</a>
-    </div>
-    
-    <div class="welcome">
-      <p>Welcome, <span id="parentName">Sarah</span>!</p>
-      <small>Your account was created successfully.</small>
-    </div>
-    
-    <h2>Your Family</h2>
-    <div class="cards-grid" id="familyGrid"></div>
-    
-    <button class="cta-primary" onclick="handleAddAnother()" style="max-width: 300px; display: block; margin: 40px auto;">Add another child</button>
-    
-    <div class="divider"></div>
-    
-    <h2>Quick Links</h2>
-    <div class="quick-links">
-      <a href="../open/index.html">Explore cards</a>
-      <a href="../open/collection.html">View collections</a>
-    </div>
-  </main>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const parentName = sessionStorage.getItem('parentName') || 'Sarah';
-      const childName = sessionStorage.getItem('childName') || 'Jake';
-      
-      document.getElementById('parentName').textContent = parentName;
-      
-      const collection = JSON.parse(sessionStorage.getItem('collection') || '[]');
-      const cardCount = collection.length;
-      const rarest = collection.length > 0 ? collection[0].name : '—';
-      
-      const grid = document.getElementById('familyGrid');
-      grid.innerHTML = `
-        <div class="card">
-          <div class="card-header">
-            <div class="card-avatar">👦</div>
-            <div>
-              <h3 class="card-title">${childName}</h3>
-              <p class="card-subtitle">Age 9</p>
-            </div>
-          </div>
-          <div class="card-content">
-            <strong>Pulled:</strong> ${cardCount} cards<br>
-            <strong>Rarest:</strong> ${rarest}
-          </div>
-          <a href="../open/collection.html" class="cta-primary">View full collection</a>
+    <header>
+        <div class="logo">FIRST <span class="pull">PULL</span> CARDS</div>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../explore/index.html">Explore</a>
+            <span id="userEmail" style="color:#0F766E;font-size:14px;"></span>
+        </nav>
+    </header>
+    <div class="container">
+        <h1 id="greeting"></h1>
+        <h2>Your Family</h2>
+        <div id="childrenGrid" class="grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;"></div>
+        <button onclick="window.location.href='add-child.html'" style="margin:30px 0 20px;">Add New Child</button>
+        <div style="display:flex;gap:12px;margin:30px 0;">
+            <button class="btn-secondary" onclick="window.location.href='settings.html'">Settings</button>
+            <button class="btn-secondary" onclick="logout()">Log Out</button>
         </div>
-      `;
-    });
-    
-    function handleAddAnother() {
-      window.location.href = '../add-child.html';
-    }
-  </script>
+    </div>
+    <script>
+        const family=JSON.parse(sessionStorage.getItem('fpc_family')||'{}');
+        const collection=JSON.parse(sessionStorage.getItem('fpc_collection')||'[]');
+        
+        document.getElementById('greeting').textContent='Welcome, '+family.parentName+'!';
+        document.getElementById('userEmail').textContent=family.email;
+        
+        const grid=document.getElementById('childrenGrid');
+        (family.children||[]).forEach((child,idx)=>{
+            const div=document.createElement('div');
+            div.className='card';
+            div.style.cursor='pointer';
+            div.innerHTML=`
+                <div style="font-size:16px;font-weight:600;margin-bottom:12px;">👦 ${child}</div>
+                <div style="font-size:12px;color:#475569;margin-bottom:16px;">Pulled: ${collection.length} cards</div>
+                <button class="btn-secondary" onclick="window.location.href='../open/collection.html'">View Collection</button>
+            `;
+            grid.appendChild(div);
+        });
+        
+        function logout(){
+            if(confirm('Log out?')){
+                sessionStorage.clear();
+                window.location.href='../index.html';
+            }
+        }
+    </script>
 </body>
 </html>
