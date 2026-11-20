@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Cards - First Pull Cards</title>
+    <style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=Inter:wght@400;500;600&display=swap');
+* {margin:0;padding:0;box-sizing:border-box;}
+body {background:#F7F9FB!important;font-family:'Inter',sans-serif!important;color:#0F172A;}
+header {background:#FFFFFF;border-bottom:1px solid #E4EAF0;padding:20px;position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.logo {font-family:'DM Sans',sans-serif;font-size:18px;font-weight:800;color:#0F172A;}
+.logo .pull {color:#0F766E;}
+header nav a {color:#0F766E;text-decoration:none;font-weight:500;margin-left:30px;font-size:14px;}
+header nav a:hover {color:#0D5F58;}
+.container {max-width:900px;margin:40px auto;padding:0 20px;}
+h1 {font-family:'DM Sans',sans-serif;font-size:32px;font-weight:800;margin-bottom:20px;}
+h2 {font-family:'DM Sans',sans-serif;font-size:24px;font-weight:800;margin:30px 0 20px 0;}
+.form-container {background:#FFFFFF;border:1px solid #E4EAF0;border-radius:8px;padding:32px;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+.form-group {margin-bottom:20px;}
+label {display:block;margin-bottom:8px;font-weight:500;font-size:14px;}
+input,select {width:100%;padding:12px 16px;border:1px solid #E4EAF0;border-radius:8px;font-size:16px;height:44px;}
+input:focus,select:focus {outline:none;border-color:#0F766E;box-shadow:0 0 0 3px rgba(15,118,110,0.12);}
+button {width:100%;padding:12px 28px;background:#0F766E;color:#FFFFFF;border:none;border-radius:8px;font-weight:700;height:44px;cursor:pointer;}
+button:hover {background:#0D5F58;}
+.error {color:#EF4444;font-size:12px;margin-top:4px;}
+.hidden {display:none;}
+.card {background:#FFFFFF;border:1px solid #E4EAF0;border-radius:12px;padding:16px;margin:16px 0;}
+.grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin:20px 0;}
+.card-tile {border:2px solid #E4EAF0;border-radius:6px;background:#F7F9FB;text-align:center;overflow:hidden;cursor:pointer;transition:transform 0.2s;}
+.card-tile:hover {transform:translateY(-4px);box-shadow:0 4px 12px rgba(0,0,0,0.12);}
+.card-tile-image {background:#E4EAF0;height:140px;display:flex;align-items:center;justify-content:center;color:#94A3B8;font-size:12px;}
+.card-tile-info {padding:8px;font-size:12px;}
+.card-tile-name {font-weight:600;color:#0F172A;margin-bottom:4px;}
+.card-tile-team {color:#475569;font-size:11px;}
+.card-tile-price {color:#0F766E;font-weight:600;font-size:11px;margin-top:4px;}
+.rarity-badge {display:inline-block;background:#FFFBEB;border:1px solid #FDE68A;color:#F59E0B;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:800;margin-top:4px;}
+.text-center {text-align:center;}
+.mb-20 {margin-bottom:20px;}
+a {color:#0F766E;text-decoration:none;}
+a:hover {text-decoration:underline;}
+.flex {display:flex;gap:12px;margin:12px 0;}
+.flex button {flex:1;}
+.btn-secondary {background:transparent;color:#0F766E;border:1px solid #0F766E;padding:12px 24px;border-radius:8px;font-weight:600;cursor:pointer;height:44px;width:100%;}
+.btn-secondary:hover {background:#F0FDFA;}</style>
+</head>
+<body>
+    <header>
+        <div class="logo">FIRST <span class="pull">PULL</span> CARDS</div>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../gallery.html">Gallery</a>
+            <a href="../login.html">Log In</a>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Find My Cards</h1>
+        <div class="form-container">
+            <div class="form-group">
+                <label>Search for a player:</label>
+                <select id="playerSearch" onchange="displayPlayer()">
+                    <option value="">Select a player...</option>
+                </select>
+            </div>
+            <div id="playerCards" class="hidden">
+                <div id="cardsGrid" class="grid"></div>
+                <div style="margin:20px 0;">
+                    <button class="btn-secondary" onclick="document.getElementById('playerSearch').value='';document.getElementById('playerCards').classList.add('hidden');">Clear Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const players=[
+{name:'Cooper Flagg',team:'Boston Celtics',number:'001',rarity:'Ultra Rare',low:45,high:89},
+{name:'LeBron James',team:'Los Angeles Lakers',number:'002',rarity:'Rare',low:18,high:34},
+{name:'Stephen Curry',team:'Golden State Warriors',number:'003',rarity:'Rare',low:22,high:41},
+{name:'Dylan Harper',team:'New Orleans Pelicans',number:'004',rarity:'Uncommon',low:8,high:19},
+{name:'Giannis Antetokounmpo',team:'Milwaukee Bucks',number:'005',rarity:'Rare',low:15,high:28},
+{name:'Nikola Jokic',team:'Denver Nuggets',number:'006',rarity:'Rare',low:20,high:38},
+{name:'Luka Doncic',team:'Dallas Mavericks',number:'007',rarity:'Ultra Rare',low:35,high:72},
+{name:'Victor Wembanyama',team:'San Antonio Spurs',number:'008',rarity:'Ultra Rare',low:55,high:110},
+{name:'Ja Morant',team:'Memphis Grizzlies',number:'009',rarity:'Uncommon',low:12,high:24},
+{name:'Jayson Tatum',team:'Boston Celtics',number:'010',rarity:'Common',low:4,high:9},
+{name:'Anthony Edwards',team:'Minnesota Timberwolves',number:'011',rarity:'Uncommon',low:10,high:22},
+{name:'Cade Cunningham',team:'Detroit Pistons',number:'012',rarity:'Common',low:3,high:8},
+];
+        
+        // Populate dropdown
+        const select=document.getElementById('playerSearch');
+        players.forEach(p=>{
+            const opt=document.createElement('option');
+            opt.value=p.name;
+            opt.textContent=p.name;
+            select.appendChild(opt);
+        });
+        
+        function displayPlayer(){
+            const name=document.getElementById('playerSearch').value;
+            if(!name){document.getElementById('playerCards').classList.add('hidden');return;}
+            const player=players.find(p=>p.name===name);
+            if(!player)return;
+            const grid=document.getElementById('cardsGrid');
+            grid.innerHTML=`
+                <div class="card-tile" onclick="addToCollection('${player.name}')">
+                    <div class="card-tile-image">Card Image</div>
+                    <div class="card-tile-info">
+                        <div class="card-tile-name">${player.name}</div>
+                        <div class="card-tile-team">${player.team}</div>
+                        <div class="card-tile-price">$${player.low} - $${player.high}</div>
+                        <div class="rarity-badge">${player.rarity}</div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('playerCards').classList.remove('hidden');
+        }
+        
+        function addToCollection(name){
+            const collection=JSON.parse(sessionStorage.getItem('fpc_collection')||'[]');
+            const player=players.find(p=>p.name===name);
+            if(player)collection.push({name:player.name,team:player.team,number:player.number,rarity:player.rarity,low:player.low,high:player.high});
+            sessionStorage.setItem('fpc_collection',JSON.stringify(collection));
+            alert('✓ Added to collection!');
+        }
+    </script>
+</body>
+</html>
