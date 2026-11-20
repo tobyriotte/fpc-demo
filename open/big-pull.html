@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Big Pull - First Pull Cards</title>
+    <style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=Inter:wght@400;500;600&display=swap');
+* {margin:0;padding:0;box-sizing:border-box;}
+body {background:#F7F9FB!important;font-family:'Inter',sans-serif!important;color:#0F172A;}
+header {background:#FFFFFF;border-bottom:1px solid #E4EAF0;padding:20px;position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.logo {font-family:'DM Sans',sans-serif;font-size:18px;font-weight:800;color:#0F172A;}
+.logo .pull {color:#0F766E;}
+header nav a {color:#0F766E;text-decoration:none;font-weight:500;margin-left:30px;font-size:14px;}
+header nav a:hover {color:#0D5F58;}
+.container {max-width:900px;margin:40px auto;padding:0 20px;}
+h1 {font-family:'DM Sans',sans-serif;font-size:32px;font-weight:800;margin-bottom:20px;}
+h2 {font-family:'DM Sans',sans-serif;font-size:24px;font-weight:800;margin:30px 0 20px 0;}
+.form-container {background:#FFFFFF;border:1px solid #E4EAF0;border-radius:8px;padding:32px;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+.form-group {margin-bottom:20px;}
+label {display:block;margin-bottom:8px;font-weight:500;font-size:14px;}
+input,select {width:100%;padding:12px 16px;border:1px solid #E4EAF0;border-radius:8px;font-size:16px;height:44px;}
+input:focus,select:focus {outline:none;border-color:#0F766E;box-shadow:0 0 0 3px rgba(15,118,110,0.12);}
+button {width:100%;padding:12px 28px;background:#0F766E;color:#FFFFFF;border:none;border-radius:8px;font-weight:700;height:44px;cursor:pointer;}
+button:hover {background:#0D5F58;}
+.error {color:#EF4444;font-size:12px;margin-top:4px;}
+.hidden {display:none;}
+.card {background:#FFFFFF;border:1px solid #E4EAF0;border-radius:12px;padding:16px;margin:16px 0;}
+.grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin:20px 0;}
+.card-tile {border:2px solid #E4EAF0;border-radius:6px;background:#F7F9FB;text-align:center;overflow:hidden;cursor:pointer;}
+.card-tile-image {background:#E4EAF0;height:140px;display:flex;align-items:center;justify-content:center;color:#94A3B8;font-size:12px;}
+.card-tile-info {padding:8px;font-size:12px;}
+.card-tile-name {font-weight:600;color:#0F172A;margin-bottom:4px;}
+.card-tile-team {color:#475569;font-size:11px;}
+.card-tile-price {color:#0F766E;font-weight:600;font-size:11px;margin-top:4px;}
+.rarity-badge {display:inline-block;background:#FFFBEB;border:1px solid #FDE68A;color:#F59E0B;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:800;margin-top:4px;}
+.text-center {text-align:center;}
+.mb-20 {margin-bottom:20px;}
+a {color:#0F766E;text-decoration:none;}
+a:hover {text-decoration:underline;}
+.flex {display:flex;gap:12px;margin:12px 0;}
+.flex button {flex:1;}
+.btn-secondary {background:transparent;color:#0F766E;border:1px solid #0F766E;padding:12px 24px;border-radius:8px;font-weight:600;cursor:pointer;height:44px;width:100%;margin-bottom:12px;}
+.btn-secondary:hover {background:#F0FDFA;}
+.upload-area {border:2px dashed #0F766E;border-radius:8px;padding:40px;text-align:center;background:rgba(15,118,110,0.03);cursor:pointer;}
+.upload-area:hover {background:rgba(15,118,110,0.08);}
+.preview-image {max-width:100%;max-height:300px;margin:20px 0;border-radius:8px;}</style>
+</head>
+<body>
+    <header>
+        <div class="logo">FIRST <span class="pull">PULL</span> CARDS</div>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../explore/index.html">Explore</a>
+            <a href="../login.html">Log In</a>
+        </nav>
+    </header>
+    <div class="container" style="max-width:600px;">
+        <h1>Here's your biggest pull</h1>
+        <div class="form-container">
+            <div id="bigPullCard" class="card text-center">
+                <div style="background:#E4EAF0;height:200px;display:flex;align-items:center;justify-content:center;border-radius:8px;margin-bottom:16px;color:#94A3B8;">Card Image</div>
+                <div id="cardName" style="font-size:18px;font-weight:600;margin-bottom:4px;"></div>
+                <div id="cardTeam" style="font-size:14px;color:#475569;margin-bottom:8px;"></div>
+                <div id="cardRarity" class="rarity-badge" style="margin-bottom:12px;"></div>
+                <div id="cardValue" style="font-size:14px;color:#0F766E;font-weight:600;"></div>
+            </div>
+            <button onclick="window.location.href='submit.html'">Submit Photo</button>
+            <button class="btn-secondary" onclick="window.location.href='collection.html'">Back to Collection</button>
+        </div>
+    </div>
+    <script>
+        const players=[
+{name:'Cooper Flagg',team:'Boston Celtics',number:'001',rarity:'Ultra Rare',low:45,high:89},
+{name:'LeBron James',team:'Los Angeles Lakers',number:'002',rarity:'Rare',low:18,high:34},
+{name:'Stephen Curry',team:'Golden State Warriors',number:'003',rarity:'Rare',low:22,high:41},
+{name:'Dylan Harper',team:'New Orleans Pelicans',number:'004',rarity:'Uncommon',low:8,high:19},
+{name:'Giannis Antetokounmpo',team:'Milwaukee Bucks',number:'005',rarity:'Rare',low:15,high:28},
+{name:'Nikola Jokic',team:'Denver Nuggets',number:'006',rarity:'Rare',low:20,high:38},
+{name:'Luka Doncic',team:'Dallas Mavericks',number:'007',rarity:'Ultra Rare',low:35,high:72},
+{name:'Victor Wembanyama',team:'San Antonio Spurs',number:'008',rarity:'Ultra Rare',low:55,high:110},
+{name:'Ja Morant',team:'Memphis Grizzlies',number:'009',rarity:'Uncommon',low:12,high:24},
+{name:'Jayson Tatum',team:'Boston Celtics',number:'010',rarity:'Common',low:4,high:9},
+{name:'Anthony Edwards',team:'Minnesota Timberwolves',number:'011',rarity:'Uncommon',low:10,high:22},
+{name:'Cade Cunningham',team:'Detroit Pistons',number:'012',rarity:'Common',low:3,high:8},
+];
+        
+        const collection=JSON.parse(sessionStorage.getItem('fpc_collection')||'[]');
+        if(collection.length===0){
+            document.getElementById('bigPullCard').innerHTML='<p>No cards yet. <a href="search.html">Find cards</a></p>';
+        } else {
+            const bigPull=collection.reduce((max,card)=>{
+                const rarityOrder={'Common':1,'Uncommon':2,'Rare':3,'Ultra Rare':4};
+                return (rarityOrder[card.rarity]||0)>(rarityOrder[max.rarity]||0)?card:max;
+            });
+            document.getElementById('cardName').textContent=bigPull.name;
+            document.getElementById('cardTeam').textContent=bigPull.team;
+            document.getElementById('cardRarity').textContent=bigPull.rarity;
+            document.getElementById('cardValue').textContent=`$${bigPull.low} - $${bigPull.high}`;
+        }
+    </script>
+</body>
+</html>
