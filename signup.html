@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up — First Pull Cards</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=Inter:wght@400;500;600&display=swap');
+    
+    html, body {
+      background-color: #F7F9FB !important;
+      color: #0F172A !important;
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'DM Sans', 'Arial Narrow', sans-serif !important;
+      font-weight: 800 !important;
+      color: #0F172A !important;
+      letter-spacing: 0.02em;
+    }
+    
+    .demo-nav {
+      background: #FFFFFF !important;
+      padding: 8px 16px;
+      border-bottom: 1px solid #E4EAF0;
+      font-size: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .demo-nav span {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      color: #475569;
+      margin-right: 8px;
+    }
+    
+    .demo-nav a {
+      color: #0F766E;
+      text-decoration: none;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .demo-nav a:hover {
+      text-decoration: underline;
+    }
+    
+    .container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+    
+    .form-wrapper {
+      width: 100%;
+      max-width: 440px;
+    }
+    
+    .card {
+      background: #FFFFFF;
+      border: 1px solid #E4EAF0;
+      border-radius: 16px;
+      padding: 48px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 12px;
+      font-size: 32px;
+      color: #0F172A;
+    }
+    
+    .form-subhead {
+      text-align: center;
+      font-size: 16px;
+      color: #475569;
+      margin-bottom: 32px;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      font-size: 14px;
+      color: #0F172A;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 16px;
+      background-color: #FFFFFF;
+      border: 1px solid #E4EAF0;
+      color: #0F172A;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      min-height: 44px;
+      box-sizing: border-box;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #0F766E;
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+    }
+    
+    input::placeholder {
+      color: #475569;
+    }
+    
+    .btn-primary {
+      background: #0F766E;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      min-height: 44px;
+      transition: background 0.2s ease;
+      margin-bottom: 20px;
+    }
+    
+    .btn-primary:hover {
+      background: #0D5F58;
+    }
+    
+    .coppa-text {
+      font-size: 14px;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+    
+    .small-text {
+      font-size: 13px;
+      color: #64748B;
+      margin-top: 8px;
+    }
+    
+    .login-link {
+      text-align: center;
+      font-size: 14px;
+      color: #0F172A;
+    }
+    
+    .login-link a {
+      color: #0F766E;
+      text-decoration: none;
+    }
+    
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0F766E;
+      color: #FFFFFF;
+      padding: 16px 24px;
+      border-radius: 8px;
+      font-weight: 500;
+      animation: slideIn 0.3s ease-in-out;
+      z-index: 999;
+      display: none;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .toast.show {
+      display: block;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-nav">
+    <span>DEMO:</span>
+    <a href="index.html">Landing</a>
+    <a href="signup.html">Sign Up</a>
+    <a href="add-child.html">Add Child</a>
+    <a href="open/index.html">Card Explorer</a>
+    <a href="open/collection.html">Collection</a>
+    <a href="dashboard/index.html">Dashboard</a>
+  </div>
+  
+  <div class="container">
+    <div class="form-wrapper">
+      <div class="card">
+        <h2>Create your account</h2>
+        <p class="form-subhead">Start exploring cards with your family.</p>
+        
+        <div class="form-group">
+          <label for="email">Parent Email *</label>
+          <input type="email" id="email" placeholder="you@example.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="name">Parent Name *</label>
+          <input type="text" id="name" placeholder="Sarah" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password (8+ chars) *</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirm">Confirm Password *</label>
+          <input type="password" id="confirm" placeholder="••••••••" required>
+        </div>
+        
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="coppa" required style="width: auto; min-height: auto; margin-right: 8px; cursor: pointer;">
+            <span class="coppa-text">I agree to the Privacy Policy. I confirm I am the parent or guardian creating this account.</span>
+          </label>
+          <div class="small-text">Your consent is recorded.</div>
+        </div>
+        
+        <button class="btn-primary" onclick="handleSignup()">Create account</button>
+        
+        <div class="login-link">
+          Already have an account? <a href="dashboard/index.html">Log in</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="toast" id="toast"></div>
+  
+  <script>
+    function showToast(message, duration = 3000) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), duration);
+    }
+    
+    function handleSignup() {
+      const email = document.getElementById('email').value;
+      const name = document.getElementById('name').value;
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm').value;
+      const coppa = document.getElementById('coppa').checked;
+      
+      if (!email || !name || !password || !confirm) {
+        showToast('Please fill in all fields.');
+        return;
+      }
+      
+      if (password !== confirm) {
+        showToast('Passwords do not match.');
+        return;
+      }
+      
+      if (password.length < 8) {
+        showToast('Password must be at least 8 characters.');
+        return;
+      }
+      
+      if (!coppa) {
+        showToast('You must agree to the Privacy Policy.');
+        return;
+      }
+      
+      sessionStorage.setItem('parentEmail', email);
+      sessionStorage.setItem('parentName', name);
+      sessionStorage.setItem('isLoggedIn', 'true');
+      
+      window.location.href = 'add-child.html';
+    }
+  </script>
+</body>
+</html>
