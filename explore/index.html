@@ -135,7 +135,10 @@
             <div class="base-card-container">
                 <div class="base-card-display" id="baseCardDisplay"></div>
             </div>
-        </div>
+            <div id="thatsMineSection" style="margin-top:20px;text-align:center;display:none;">
+              <button id="thatsMineBtn" onclick="addToMyCollection()" style="width:100%;max-width:280px;height:52px;background:#0F766E;color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:20px;border:none;border-radius:8px;cursor:pointer;letter-spacing:0.02em;">That's Mine</button>
+              <p style="margin-top:8px;font-size:12px;color:#475569;font-family:'Inter',sans-serif;">Tap to add this card to your collection</p>
+            </div>
 
         <div class="pricing-section" id="pricingSection" style="display: none;">
             <div class="pricing-header">Recent Sales — 2026-27 Topps Flagship</div>
@@ -8900,6 +8903,9 @@ const chromeLookup = {
         function showContent() {
             emptyState.style.display = 'none';
             playerInfo.style.display = 'block';
+            // Show That's Mine button
+            const tms = document.getElementById('thatsMineSection');
+            if (tms) tms.style.display = 'block';
             baseCardWrapper.style.display = 'block';
             pricingSection.style.display = 'block';
             // rookieSection visibility is controlled entirely by renderRookieCards — do NOT override it here
@@ -8909,6 +8915,32 @@ const chromeLookup = {
         }
 
         searchInput.focus();
-    </script>
+    
+        function addToMyCollection() {
+          if (!currentPlayer) return;
+          const baseCard = (currentPlayer.cards && currentPlayer.cards[0]) || {};
+          const col = JSON.parse(sessionStorage.getItem('fpc_collection') || '[]');
+          col.push({
+            name: currentPlayer.name,
+            team: currentPlayer.team || '',
+            number: baseCard.card_number || '001',
+            rarity: baseCard.rarity_tier || 'Common',
+            low: 10, high: 25
+          });
+          sessionStorage.setItem('fpc_collection', JSON.stringify(col));
+          const cel = document.getElementById('collectionCelebration');
+          const celName = document.getElementById('celPlayerName');
+          if (cel) {
+            if (celName) celName.textContent = currentPlayer.name;
+            cel.style.display = 'flex';
+            setTimeout(() => { cel.style.display = 'none'; }, 2500);
+          }
+        }
+</script>
+    <div id="collectionCelebration" style="display:none;position:fixed;inset:0;background:rgba(15,118,110,0.95);z-index:9999;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;" onclick="this.style.display='none'">
+      <div style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:40px;color:#fff;margin-bottom:8px;">Added to Your Collection</div>
+      <div id="celPlayerName" style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:24px;color:rgba(255,255,255,0.9);margin-bottom:24px;"></div>
+      <div style="font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,0.7);">Tap anywhere to continue</div>
+    </div>
 </body>
 </html>
