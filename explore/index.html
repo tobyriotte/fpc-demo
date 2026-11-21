@@ -105,7 +105,7 @@
 <body>
     <nav style="background: #FFFFFF; border-bottom: 1px solid #E4EAF0; height: 60px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; padding: 0 24px; justify-content: space-between;">
         <a href="../index.html" style="font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 800; text-decoration: none; color: #0F172A;"><span style="color: #0F766E;">FIRST PULL</span> CARDS</a>
-        <div style="display: flex; gap: 24px; align-items: center;">
+        <div id="nav-links" style="display: flex; gap: 24px; align-items: center;">
             <a href="index.html" style="text-decoration: none; color: #0F766E; font-weight: 600; font-size: 14px;">Explore</a>
             <a href="../gallery.html" style="text-decoration: none; color: #0F766E; font-weight: 600; font-size: 14px;">Gallery</a>
             <a href="../login.html" style="text-decoration: none; color: #0F766E; font-weight: 600; font-size: 14px;">Log In</a>
@@ -173,6 +173,21 @@
     </div>
 
     <script>
+        // Update nav based on login state
+        document.addEventListener('DOMContentLoaded', function() {
+          const isLoggedIn = sessionStorage.getItem('fpc_logged_in') === 'true';
+          const navLinks = document.getElementById('nav-links');
+          if (navLinks) {
+            if (isLoggedIn) {
+              navLinks.innerHTML = `
+                <a href="../dashboard/index.html" style="text-decoration: none; color: #0F766E; font-weight: 600; font-size: 14px;">Dashboard</a>
+                <a href="../open/collection.html" style="text-decoration: none; color: #0F766E; font-weight: 600; font-size: 14px;">My Collection</a>
+                <a href="#" style="text-decoration: none; color: #0F766E; font-weight: 600; font-size: 14px;" onclick="sessionStorage.clear(); window.location.href='../index.html'; return false;">Log Out</a>
+              `;
+            }
+          }
+        });
+
         const chromeCardsData = {
             "2025_topps_chrome": {
                 "name": "Cooper Flagg",
