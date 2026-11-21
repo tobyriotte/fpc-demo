@@ -437,8 +437,30 @@
     </footer>
     
     <script>
+        // Update nav based on login state
+        function updateNavState() {
+            const isLoggedIn = sessionStorage.getItem('fpc_logged_in') === 'true';
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) {
+                if (isLoggedIn) {
+                    navLinks.innerHTML = `
+                        <a href="dashboard/index.html">Dashboard</a>
+                        <a href="open/collection.html">My Collection</a>
+                        <a href="#" onclick="sessionStorage.clear(); window.location.href='index.html'; return false;">Log Out</a>
+                    `;
+                } else {
+                    navLinks.innerHTML = `
+                        <a href="explore/index.html">Card Explorer</a>
+                        <a href="open/collection.html">My Collection</a>
+                        <a href="login.html">Log In</a>
+                    `;
+                }
+            }
+        }
+
         // Check if already registered — show welcome state instead of form
         window.addEventListener('DOMContentLoaded', function() {
+            updateNavState();
             const family = JSON.parse(sessionStorage.getItem('fpc_family') || localStorage.getItem('fpc_family') || 'null');
             if (family && family.parentName) {
                 document.getElementById('register-form').style.display = 'none';
@@ -524,6 +546,9 @@
             sessionStorage.setItem('fpc_logged_in', 'true');
             localStorage.setItem('fpc_family', JSON.stringify(family));
             localStorage.setItem('fpc_logged_in', 'true');
+            
+            // Update nav state before redirect
+            updateNavState();
             
             // Redirect
             window.location.href = 'thank-you.html';
