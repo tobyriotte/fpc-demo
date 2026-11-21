@@ -8310,7 +8310,39 @@
             if (!currentPlayer) return;
             const baseCard = currentPlayer.cards.find(c => c.card_type === 'base');
             if (!baseCard) return;
-            const s = playerStatsLookup[currentPlayer.name] || currentPlayer.stats || {};
+            const _pslug = (currentPlayer.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); const s = (PLAYER_REGISTRY[_pslug] && PLAYER_REGISTRY[_pslug].stats) || playerStatsLookup[currentPlayer.name] || currentPlayer.stats || {};
+
+};
+
+        // PLAYER_REGISTRY: unified source of truth - name, team, stats, pricing, chrome all in one place
+        // To fix a player's data: update ONE entry here and all displays stay in sync
+        const PLAYER_REGISTRY = {};
+        (function buildRegistry() {
+            teams.forEach(function(teamObj) {
+                (teamObj.players || []).forEach(function(player) {
+                    var slug = (player.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+                    PLAYER_REGISTRY[slug] = {
+                        name: player.name,
+                        team: player.team,
+                        stats: playerStatsLookup[player.name] || {},
+                        pricing: playerPricingLookup[slug] || [],
+                        chrome: (chromeLookup[slug] || {}).chrome || null,
+                        chrome_update: (chromeLookup[slug] || {}).chrome_update || null
+                    };
+                });
+            });
+        })();
+        (function validateRegistry() {
+            var issues = 0;
+            Object.keys(PLAYER_REGISTRY).forEach(function(slug) {
+                var r = PLAYER_REGISTRY[slug];
+                if (!r.team) { console.warn('[FPC] Missing team:', r.name); issues++; }
+                if (!r.stats || !r.stats.ppg) { console.warn('[FPC] Missing stats:', r.name); issues++; }
+            });
+            if (issues === 0) console.log('[FPC] PLAYER_REGISTRY OK - all players have team + stats');
+            else console.warn('[FPC] PLAYER_REGISTRY: ' + issues + ' data issues - check warnings above');
+        })();
+
             const blurb = currentPlayer.blurb || '';
             const imgSrc = baseCard.image_url || '';
             const rarity = baseCard.rarity_tier || 'Base Card';
@@ -8354,7 +8386,7 @@
 
         function renderPricingData() {
             const slug = currentPlayer ? currentPlayer.id : null;
-            const playerData = (slug && playerPricingLookup[slug] && playerPricingLookup[slug].length >= 3) ? playerPricingLookup[slug] : null;
+            const playerData = (PLAYER_REGISTRY[slug] && PLAYER_REGISTRY[slug].pricing && PLAYER_REGISTRY[slug].pricing.length >= 3) ? PLAYER_REGISTRY[slug].pricing : (slug && playerPricingLookup[slug] && playerPricingLookup[slug].length >= 3) ? playerPricingLookup[slug] : null;
             if (!playerData) {
                 pricingSection.style.display = 'block';
                 document.getElementById('priceChartContainer').innerHTML = '<div style="padding:32px 16px;text-align:center;color:#94a3b8;font-size:14px;">No recent sales data available for this card.</div>';
@@ -8388,7 +8420,7 @@
         function renderPriceChart(cardType) {
             if (cardType === 'flagship') {
                 const slug = currentPlayer ? currentPlayer.id : null;
-                const playerData = (slug && playerPricingLookup[slug] && playerPricingLookup[slug].length >= 3) ? playerPricingLookup[slug] : null;
+                const playerData = (PLAYER_REGISTRY[slug] && PLAYER_REGISTRY[slug].pricing && PLAYER_REGISTRY[slug].pricing.length >= 3) ? PLAYER_REGISTRY[slug].pricing : (slug && playerPricingLookup[slug] && playerPricingLookup[slug].length >= 3) ? playerPricingLookup[slug] : null;
                 if (!playerData) {
                     document.getElementById('priceChartContainer').innerHTML = '<div style="padding:32px 16px;text-align:center;color:#94a3b8;font-size:14px;">No sales data available for this card.</div>';
                     const salesTable = document.getElementById('salesTable');
