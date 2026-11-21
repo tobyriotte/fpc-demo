@@ -8916,10 +8916,10 @@ const chromeLookup = {
 
         searchInput.focus();
     
-        function addToMyCollection() {
+function addToMyCollection() {
           if (!currentPlayer) return;
-          const baseCard = (currentPlayer.cards && currentPlayer.cards[0]) || {};
-          const col = JSON.parse(sessionStorage.getItem('fpc_collection') || '[]');
+          const baseCard = currentPlayer.cards ? currentPlayer.cards.find(c => c.card_type === 'base') || currentPlayer.cards[0] || {} : {};
+          const col = JSON.parse(localStorage.getItem('fpc_collection') || '[]');
           col.push({
             name: currentPlayer.name,
             team: currentPlayer.team || '',
@@ -8927,14 +8927,32 @@ const chromeLookup = {
             rarity: baseCard.rarity_tier || 'Common',
             low: 10, high: 25
           });
-          sessionStorage.setItem('fpc_collection', JSON.stringify(col));
+          localStorage.setItem('fpc_collection', JSON.stringify(col));
+          // Show celebration
           const cel = document.getElementById('collectionCelebration');
           const celName = document.getElementById('celPlayerName');
           if (cel) {
             if (celName) celName.textContent = currentPlayer.name;
             cel.style.display = 'flex';
-            setTimeout(() => { cel.style.display = 'none'; }, 2500);
+            setTimeout(() => {
+              cel.style.display = 'none';
+              // Auto-reset to blank search
+              resetSearch();
+            }, 2000);
           }
+        }
+
+        function resetSearch() {
+          const searchInput = document.getElementById('searchInput') || document.querySelector('input[type="search"], input[placeholder*="player"], input[placeholder*="Player"], input[placeholder*="Type"]');
+          if (searchInput) {
+            searchInput.value = '';
+            searchInput.dispatchEvent(new Event('input'));
+          }
+          const playerInfo = document.getElementById('playerInfo');
+          if (playerInfo) playerInfo.style.display = 'none';
+          const tms = document.getElementById('thatsMineSection');
+          if (tms) tms.style.display = 'none';
+          currentPlayer = null;
         }
 </script>
     <div id="collectionCelebration" style="display:none;position:fixed;inset:0;background:rgba(15,118,110,0.95);z-index:9999;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;" onclick="this.style.display='none'">
