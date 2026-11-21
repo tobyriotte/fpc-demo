@@ -251,6 +251,29 @@
     </footer>
     
     <script>
+        // Update nav based on login state
+        function updateNavState() {
+            const isLoggedIn = sessionStorage.getItem('fpc_logged_in') === 'true';
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) {
+                if (isLoggedIn) {
+                    navLinks.innerHTML = `
+                        <a href="../dashboard/index.html">Dashboard</a>
+                        <a href="../open/collection.html">My Collection</a>
+                        <a href="#" onclick="logout(); return false;">Log Out</a>
+                    `;
+                } else {
+                    navLinks.innerHTML = `
+                        <a href="../explore/index.html">Card Explorer</a>
+                        <a href="../open/collection.html">My Collection</a>
+                        <a href="../login.html">Log In</a>
+                    `;
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', updateNavState);
+
         const family = JSON.parse(sessionStorage.getItem('fpc_family') || '{}');
         const collection = JSON.parse(sessionStorage.getItem('fpc_collection') || '[]');
         
