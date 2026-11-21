@@ -8388,7 +8388,13 @@
         function renderPriceChart(cardType) {
             if (cardType === 'flagship') {
                 const slug = currentPlayer ? currentPlayer.id : null;
-                const playerData = (slug && playerPricingLookup[slug] && playerPricingLookup[slug].length >= 3) ? playerPricingLookup[slug] : rawChartData;
+                const playerData = (slug && playerPricingLookup[slug] && playerPricingLookup[slug].length >= 3) ? playerPricingLookup[slug] : null;
+                if (!playerData) {
+                    document.getElementById('priceChartContainer').innerHTML = '<div style="padding:32px 16px;text-align:center;color:#94a3b8;font-size:14px;">No sales data available for this card.</div>';
+                    const salesTable = document.getElementById('salesTable');
+                    if (salesTable) salesTable.style.display = 'none';
+                    return;
+                }
                 renderFlagshipChart(playerData);
             }
         }
